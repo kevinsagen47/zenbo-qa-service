@@ -44,6 +44,12 @@ public class MainActivity extends RobotActivity {
         );
     }
 
+
+    private ListView listView;
+    private String[] listviewitems;
+    private ArrayAdapter listAdapter;
+    private int font_size;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +67,18 @@ public class MainActivity extends RobotActivity {
         // this.wakeLock.acquire();
 
         this.head_pos(0, 30);
+    }
+
+    /**
+     * 初始化 activiry_main.xml layout 上元件資訊
+     * @param toast_disp , (boolean) 使否顯示 toast 資訊 debug 用
+     * @param lang       , (String)  切換語系使用
+     */
+    private void Views_Initial(boolean toast_disp, String lang) {
+        /**
+         * 取得畫面元件後指定給欄位變數。
+         */
+        // 設定 Activity 的標題
     }
 
     public static RobotCallback robotCallback = new RobotCallback() {

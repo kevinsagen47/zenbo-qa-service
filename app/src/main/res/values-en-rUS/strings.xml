@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- app name -->
+    <string name="app_name">NSYSU LIS</string>
+
+    <!-- main activity title -->
+    <string name="main_title">Information Service</string>
+
+    <!-- main activity items -->
+    <string-array name="main_items">
+        <item>FAQs1</item>
+        <item>FAQs2</item>
+        <item>Guided Tour</item>
+        <item>Library Catalog</item>
+        <item>Find Database</item>
+        <item>Find e-Journal</item>
+    </string-array>
+</resources>
