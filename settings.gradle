@@ -1,0 +1,2 @@
+rootProject.name='zenbo-qa-service'
+include ':app', ':ZenboSDK', ':RobotActivityLibrary'
