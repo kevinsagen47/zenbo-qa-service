@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.content.Intent;
 import android.view.View;
 
-import com.asus.robotframework.API.MotionControl;
 import com.asus.robotframework.API.RobotCallback;
 import com.asus.robotframework.API.RobotCmdState;
 import com.asus.robotframework.API.RobotCommand;
@@ -26,8 +25,8 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-// public class MainActivity extends AppCompatActivity {
-public class MainActivity extends RobotActivity {
+// public class LocaleHelp extends AppCompatActivity {
+public class LocaleHelp extends RobotActivity {
     // scope......
     static {
         System.setProperty(
@@ -61,38 +60,17 @@ public class MainActivity extends RobotActivity {
      * @param lang    , (String) string for language
      * @param country , (String) string for country
      */
-    public String lang    = "zh";
-    public String country = "TW";
+    private String lang    = "zh";
+    private String country = "TW";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        /**
-         * Keep the screen on
-         * app 開啟後一直顯示在螢幕上 , 類似 windows app StayOnTop
-         * 參考資料 :
-         * https://developer.android.com/training/scheduling/wakelock
-         */
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        /**
-         * Keep the device awake
-         *
-         * 參考資料 :
-         * https://developer.android.com/training/scheduling/wakelock
-         * https://developer.android.com/reference/android/os/PowerManager.WakeLock
-         */
-        // this.powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        // this.wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,"MyApp::"+getApplicationContext().getResources().getString(R.string.app_name));
-        // this.wakeLock.acquire();
+        setContentView(R.layout.activity_locale);
 
         this.get_Intent(false);
         this.Views_Initial(false);
         this.View_Control(false);
-
-        this.head_pos(0, 30);
     }
 
     /**
@@ -124,7 +102,7 @@ public class MainActivity extends RobotActivity {
         try {
             country = intent.getStringExtra("country");
             if (country == null) {
-                country = "TW";
+                country = "zh";
             }
         } catch (Exception e){
             Log.e("LocaleHelp - country", "error "+ e.toString());
@@ -150,6 +128,8 @@ public class MainActivity extends RobotActivity {
      */
     @SuppressLint("ResourceType")
     private void Views_Initial(boolean toast_disp) {
+
+
         /**
          * 取得畫面元件後指定給欄位變數。
          */
@@ -158,22 +138,22 @@ public class MainActivity extends RobotActivity {
         this.scale = getResources().getDisplayMetrics().scaledDensity;
 
         // 設定 Activity 的標題
-        TextView textview = (TextView)findViewById(R.id.main_title);
-        textview.setText(R.string.main_title);
+        TextView textview = (TextView)findViewById(R.id.locale_title);
+        textview.setText(R.string.locale_title);
 
         /**
          *  從 resource values 讀取 dimens.xml 資料 , 將 dimens sp 數值轉換 pixels
          *  scale : Scaled Density , 實際的 font pixel size 就是從 dimen 讀到的值 除以 Scaled Density
          *  參考資料 :
          *  https://stackoverflow.com/questions/13600802/android-convert-dp-to-float
-          */
+         */
         this.font_size = (int)(getResources().getDimensionPixelSize(R.dimen.activity_items) / this.scale);
 
         /**
          * 顯示 Toast 資訊 --> debug 使用
          */
         if (toast_disp) {
-            Toast.makeText(MainActivity.this, "font size :" + this.font_size, Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "font size :" + this.font_size, Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -182,7 +162,7 @@ public class MainActivity extends RobotActivity {
          * (2) 將 listView 的 text alignment 設為 center
          */
         listView = (ListView)findViewById(R.id.locale_items);
-        listviewitems = getResources().getStringArray(R.array.main_items);
+        listviewitems = getResources().getStringArray(R.array.locale_items);
         listView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
         /**
@@ -222,7 +202,7 @@ public class MainActivity extends RobotActivity {
         }  catch (Exception e) {
             Log.e("aaa", "error "+ e.toString());
             if (toast_disp) {
-                Toast.makeText(MainActivity.this, "error " + e.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "error " + e.toString(), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -237,23 +217,27 @@ public class MainActivity extends RobotActivity {
             TextView txtvw = (TextView) view;
 
             switch (position) {
-                case 0: {
-
+                case 1: {
+                    lang    = "en";
+                    country = "US";
                 }  break;
-                case 6: {
-                    intent = new Intent(getApplicationContext(), LocaleHelp.class);
-
-                    intent.putExtra("pos", position);
-                    intent.putExtra("item_name", txtvw.getText().toString());
-                    intent.putExtra("lang", lang);
-                    intent.putExtra("country", country);
-
-                    startActivity(intent);
-
+                case 0:
+                default: {
+                    lang    = "zh";
+                    country = "TW";
                 }  break;
             }
 
-            Toast.makeText(MainActivity.this, "點選第 "+position+" 個 \n內容："+txtvw.getText().toString(), Toast.LENGTH_LONG).show();
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+
+            intent.putExtra("pos", position);
+            intent.putExtra("item_name", txtvw.getText().toString());
+            intent.putExtra("lang", lang);
+            intent.putExtra("country", country);
+
+            startActivity(intent);
+
+            Toast.makeText(getBaseContext(), "點選第 "+position+" 個 \n內容："+txtvw.getText().toString(), Toast.LENGTH_LONG).show();
         }
     };
 
@@ -310,19 +294,7 @@ public class MainActivity extends RobotActivity {
         }
     };
 
-    public MainActivity() {
+    public LocaleHelp() {
         super(robotCallback, robotListenCallback);
-    }
-
-    /**
-     * zenbo 頭部移動
-     * @param x_yaw   , (float) 頭部 x 方向移動
-     * @param y_pitch , (float) 頭部 y 方向移動
-     */
-    private void head_pos(float x_yaw, float y_pitch) {
-        float yaw = (float)Math.toRadians(Float.valueOf(x_yaw));
-        float pitch = (float)Math.toRadians(Float.valueOf(y_pitch));
-
-        robotAPI.motion.moveHead(yaw, pitch, MotionControl.SpeedLevel.Head.L1);
     }
 }

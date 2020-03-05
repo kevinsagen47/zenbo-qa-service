@@ -14,5 +14,15 @@
         <item>Library Catalog</item>
         <item>Find Database</item>
         <item>Find e-Journal</item>
+        <item>Setting</item>
+    </string-array>
+
+    <!-- localeSW activity title -->
+    <string name="locale_title">Language</string>
+
+    <!-- localeSW activity items -->
+    <string-array name="locale_items">
+        <item>Traditional Chinese</item>
+        <item>English</item>
     </string-array>
 </resources>

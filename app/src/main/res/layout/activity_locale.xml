@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@android:color/darker_gray"
+    tools:context=".LocaleHelp">
 
     <LinearLayout
         android:id="@+id/linear_main"
@@ -15,13 +16,13 @@
         tools:layout_editor_absoluteY="16dp">
 
         <TextView
-            android:id="@+id/main_title"
+            android:id="@+id/locale_title"
             style="@style/Widget.Support.CoordinatorLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_green_dark"
             android:hint="@string/app_name"
-            android:text="@string/main_title"
+            android:text="@string/locale_title"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
             android:textColorHighlight="@android:color/holo_orange_dark"
@@ -35,7 +36,6 @@
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray"
             android:dividerHeight="1sp" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

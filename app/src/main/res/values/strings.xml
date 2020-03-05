@@ -3,9 +3,9 @@
     <string name="app_name">圖吱小獼</string>
 
     <!-- main activity title -->
-    <string name="main_title">圖資處服務</string>
+    <string name="main_title">圖資處服務資訊</string>
 
-    <!-- main activity items (zh/en) -->
+    <!-- main activity items -->
     <string-array name="main_items">
         <item>常用問題</item>
         <item>問題服務</item>
@@ -13,5 +13,15 @@
         <item>館藏查詢</item>
         <item>資料庫查詢</item>
         <item>期刊查詢</item>
+        <item>設定</item>
+    </string-array>
+
+    <!-- localeSW activity title -->
+    <string name="locale_title">語言切換</string>
+
+    <!-- localeSW activity items -->
+    <string-array name="locale_items">
+        <item>繁體中文</item>
+        <item>英文</item>
     </string-array>
 </resources>
