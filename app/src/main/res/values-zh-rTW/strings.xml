@@ -17,12 +17,18 @@
         <item>設定</item>
     </string-array>
 
-    <!-- localeSW activity title -->
+    <!-- localehelp activity title -->
     <string name="locale_title">語言切換</string>
 
-    <!-- localeSW activity items -->
+    <!-- localehelp activity items -->
     <string-array name="locale_items">
         <item>繁體中文</item>
         <item>英文</item>
+    </string-array>
+
+    <!-- localehelp activity icon -->
+    <string-array name="locale_icon">
+        <item>@drawable/icon_tw</item>
+        <item>@drawable/icon_us</item>
     </string-array>
 </resources>

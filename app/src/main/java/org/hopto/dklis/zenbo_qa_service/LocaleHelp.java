@@ -2,10 +2,12 @@ package org.hopto.dklis.zenbo_qa_service;
 
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
@@ -23,10 +25,17 @@ import org.json.JSONObject;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 // public class LocaleHelp extends AppCompatActivity {
 public class LocaleHelp extends RobotActivity {
+    private static final String ITEM_TITLE = "Item title";
+    private static final String ITEM_ICON  = "Item icon";
+
     // scope......
     static {
         System.setProperty(
@@ -46,13 +55,17 @@ public class LocaleHelp extends RobotActivity {
     /**
      * @param listView      , (Object) 設定 ListView 資訊
      * @param listviewitems , (String Array) ListView Items 資訊
+     * @param listviewicons , (TypedArray) ListView Icons 資訊
      * @Param listAdapter   , (Object) 用來管理 ListView 資訊
      * @oaram font_size     , (float) font size 資訊
      * @param scale         , (float) Scaled Density 資訊
      */
     private ListView listView;
     private String[] listviewitems;
+    private TypedArray listviewicons;
+    private List<Map<String, Object>> itemList;
     private ArrayAdapter listAdapter;
+    // private SimpleAdapter listAdapter;
     private int font_size;
     private float scale;
 
@@ -158,17 +171,30 @@ public class LocaleHelp extends RobotActivity {
 
         /**
          * 設定 listview 的資訊
-         * (1) 將 resource 的 main_items array 資訊放入 listviewitems
-         * (2) 將 listView 的 text alignment 設為 center
+         * (1) 將 resource 的 locale_items array 資訊放入 listviewitems
+         * (2) 將 resource 的 locale_icons array 資訊放入 listviewicons
+         * (3) 將 listView 的 text alignment 設為 center
          */
         listView = (ListView)findViewById(R.id.locale_items);
         listviewitems = getResources().getStringArray(R.array.locale_items);
+        listviewicons = getResources().obtainTypedArray(R.array.locale_icon);
         listView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+        itemList = new ArrayList<Map<String, Object>>();
+        itemList.clear();
+        for (int i = 0; i < listviewitems.length; i += 1) {
+            Map<String, Object> item = new HashMap<String, Object>();
+            item.put(ITEM_TITLE, listviewitems[i]);
+            item.put(ITEM_ICON, listviewicons.getResourceId(i,0));
+            itemList.add(item);
+        }
 
         /**
          * 使用 ArrayAdpater 管理 ListView 的資訊
          */
+        // listAdapter = new SimpleAdapter(getBaseContext(), itemList, R.layout.activity_locale, new String[] {ITEM_TITLE, ITEM_ICON}, new int[] {}) {
         listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listviewitems) {
+
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);

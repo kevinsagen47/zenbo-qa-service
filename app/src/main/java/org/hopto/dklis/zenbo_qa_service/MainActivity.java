@@ -3,6 +3,7 @@ package org.hopto.dklis.zenbo_qa_service;
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -234,11 +235,55 @@ public class MainActivity extends RobotActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent;
+            Uri uri;
             TextView txtvw = (TextView) view;
 
             switch (position) {
                 case 0: {
 
+                }  break;
+                case 1: {
+
+                }  break;
+                case 2: {
+
+                }  break;
+                case 3: {
+                    switch (lang) {
+                        case "zh":
+                        default: {
+                            uri = Uri.parse("https://dec.lib.nsysu.edu.tw/search~S1*cht/");
+                        }  break;
+                        case "en": {
+                            uri = Uri.parse("https://dec.lib.nsysu.edu.tw/search~S1*eng/");
+                        }  break;
+                    }
+
+                    intent = new Intent(Intent.ACTION_VIEW, uri);
+
+                    startActivity(intent);
+                }  break;
+                case 4: {
+                    uri = Uri.parse("https://service.lis.nsysu.edu.tw/database/?lang="+lang);
+
+                    intent = new Intent(Intent.ACTION_VIEW, uri);
+
+                    startActivity(intent);
+                }  break;
+                case 5: {
+                    switch (lang) {
+                        case "zh":
+                        default: {
+                            uri = Uri.parse("https://findit.lis.nsysu.edu.tw:3443/nsysu/journalsearch?lang=cht");
+                        }  break;
+                        case "en": {
+                            uri = Uri.parse("https://findit.lis.nsysu.edu.tw:3443/nsysu/journalsearch?lang=eng");
+                        }  break;
+                    }
+
+                    intent = new Intent(Intent.ACTION_VIEW, uri);
+
+                    startActivity(intent);
                 }  break;
                 case 6: {
                     intent = new Intent(getApplicationContext(), LocaleHelp.class);
@@ -249,9 +294,9 @@ public class MainActivity extends RobotActivity {
                     intent.putExtra("country", country);
 
                     startActivity(intent);
-
                 }  break;
             }
+
 
             Toast.makeText(MainActivity.this, "點選第 "+position+" 個 \n內容："+txtvw.getText().toString(), Toast.LENGTH_LONG).show();
         }
