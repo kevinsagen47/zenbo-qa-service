@@ -64,8 +64,8 @@ public class LocaleHelp extends RobotActivity {
     private String[] listviewitems;
     private TypedArray listviewicons;
     private List<Map<String, Object>> itemList;
-    private ArrayAdapter listAdapter;
-    // private SimpleAdapter listAdapter;
+    // private ArrayAdapter listAdapter;
+    private SimpleAdapter listAdapter;
     private int font_size;
     private float scale;
 
@@ -192,26 +192,30 @@ public class LocaleHelp extends RobotActivity {
         /**
          * 使用 ArrayAdpater 管理 ListView 的資訊
          */
-        // listAdapter = new SimpleAdapter(getBaseContext(), itemList, R.layout.activity_locale, new String[] {ITEM_TITLE, ITEM_ICON}, new int[] {}) {
-        listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listviewitems) {
+        listAdapter = new SimpleAdapter(getBaseContext(), itemList, R.layout.list_view_item, new String[] {ITEM_TITLE, ITEM_ICON}, new int[] {R.id.txtView, R.id.imgView}) {
+        // listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listviewitems) {
+
+            /**
+             * runtime 設定
+             * (1) 變更 textView 的 font size
+             * (2) 將 textView 的 text alignment 設為 center
+             * (3) 設定 text color
+             */
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
 
-                /**
-                 * runtime 設定
-                 * (1) 變更 textView 的 font size
-                 * (2) 將 textView 的 text alignment 設為 center
-                 * (3) 設定 text color
-                 */
-                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+                TextView textView=(TextView) view.findViewById(R.id.txtView);
                 textView.setTextSize(font_size);
                 textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 textView.setTextColor(Color.RED);
 
                 return view;
             }
+
+
+
         };
         listView.setAdapter(listAdapter);
 
@@ -240,7 +244,7 @@ public class LocaleHelp extends RobotActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent;
-            TextView txtvw = (TextView) view;
+            // TextView v = (TextView) view;
 
             switch (position) {
                 case 1: {
@@ -257,13 +261,13 @@ public class LocaleHelp extends RobotActivity {
             intent = new Intent(getApplicationContext(), MainActivity.class);
 
             intent.putExtra("pos", position);
-            intent.putExtra("item_name", txtvw.getText().toString());
+            // intent.putExtra("item_name", v.getText().toString());
             intent.putExtra("lang", lang);
             intent.putExtra("country", country);
 
             startActivity(intent);
 
-            Toast.makeText(getBaseContext(), "點選第 "+position+" 個 \n內容："+txtvw.getText().toString(), Toast.LENGTH_LONG).show();
+            // Toast.makeText(getBaseContext(), "點選第 "+position+" 個 \n內容："+v.getText().toString(), Toast.LENGTH_LONG).show();
         }
     };
 
