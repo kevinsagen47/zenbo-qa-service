@@ -5,12 +5,12 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.ListView;
-import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 import android.content.Intent;
 import android.view.View;
@@ -147,7 +147,9 @@ public class LocaleHelp extends RobotActivity {
          * 取得畫面元件後指定給欄位變數。
          */
 
-        /* Scaled Density 資訊 */
+        /**
+         * 抓取 android 系統 Scaled Density 資訊
+         */
         this.scale = getResources().getDisplayMetrics().scaledDensity;
 
         // 設定 Activity 的標題
@@ -177,7 +179,7 @@ public class LocaleHelp extends RobotActivity {
          */
         listView = (ListView)findViewById(R.id.locale_items);
         listviewitems = getResources().getStringArray(R.array.locale_items);
-        listviewicons = getResources().obtainTypedArray(R.array.locale_icon);
+        listviewicons = getResources().obtainTypedArray(R.array.locale_icons);
         listView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
         itemList = new ArrayList<Map<String, Object>>();
@@ -190,11 +192,12 @@ public class LocaleHelp extends RobotActivity {
         }
 
         /**
-         * 使用 ArrayAdpater 管理 ListView 的資訊
+         * 使用 SimpleAdapter 管理 ListView 的資訊
+         * (1) 將 res 內 locale_items 與 locale_icons 的資訊，透過 SimpleAdapter 分別把 text 與 icon 放置
+         *     到 list_view_item 的 layout 內
+         * (2) list_view_item 的 layout 資訊將塞入 ListView 內。
          */
         listAdapter = new SimpleAdapter(getBaseContext(), itemList, R.layout.list_view_item, new String[] {ITEM_TITLE, ITEM_ICON}, new int[] {R.id.txtView, R.id.imgView}) {
-        // listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listviewitems) {
-
             /**
              * runtime 設定
              * (1) 變更 textView 的 font size
@@ -206,10 +209,24 @@ public class LocaleHelp extends RobotActivity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
 
+                /**
+                 * runtime 設定
+                 * (1) 變更 textView 的 font size
+                 * (2) 將 textView 的 text alignment 設為 center
+                 * (3) 設定 text color
+                 */
                 TextView textView=(TextView) view.findViewById(R.id.txtView);
                 textView.setTextSize(font_size);
                 textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 textView.setTextColor(Color.RED);
+
+                /*
+                ImageView imageView=(ImageView) view.findViewById(R.id.imgView);
+                imageView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                */
+
+                LinearLayout layout = (LinearLayout) view.findViewById(R.id.layout_items);
+                layout.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
 
                 return view;
             }
@@ -244,7 +261,7 @@ public class LocaleHelp extends RobotActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent;
-            // TextView v = (TextView) view;
+            TextView v = (TextView) view.findViewById(R.id.txtView);
 
             switch (position) {
                 case 1: {
@@ -261,13 +278,13 @@ public class LocaleHelp extends RobotActivity {
             intent = new Intent(getApplicationContext(), MainActivity.class);
 
             intent.putExtra("pos", position);
-            // intent.putExtra("item_name", v.getText().toString());
+            intent.putExtra("item_name", v.getText().toString());
             intent.putExtra("lang", lang);
             intent.putExtra("country", country);
 
             startActivity(intent);
 
-            // Toast.makeText(getBaseContext(), "點選第 "+position+" 個 \n內容："+v.getText().toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "點選第 "+position+" 個 \n內容："+v.getText().toString(), Toast.LENGTH_LONG).show();
         }
     };
 

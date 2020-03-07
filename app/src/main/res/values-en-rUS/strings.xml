@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- app name -->
-    <string name="app_name">NSYSU LIS</string>
+    <string name="app_name">Zenbo Mi</string>
 
     <!-- main activity title -->
     <string name="main_title">Information Service</string>
@@ -17,8 +17,19 @@
         <item>Setting</item>
     </string-array>
 
+    <!-- main activity icon -->
+    <string-array name="main_icons">
+        <item>@drawable/icon_faq</item>
+        <item>@drawable/icon_info</item>
+        <item>@drawable/icon_guide</item>
+        <item>@drawable/icon_catalog</item>
+        <item>@drawable/icon_database</item>
+        <item>@drawable/icon_journal</item>
+        <item>@drawable/icon_setting</item>
+    </string-array>
+
     <!-- localehelp activity title -->
-    <string name="locale_title">Language</string>
+    <string name="locale_title">Setting</string>
 
     <!-- localehelp activity items -->
     <string-array name="locale_items">
@@ -27,7 +38,7 @@
     </string-array>
 
     <!-- localehelp activity icon -->
-    <string-array name="locale_icon">
+    <string-array name="locale_icons">
         <item>@drawable/icon_tw</item>
         <item>@drawable/icon_us</item>
     </string-array>

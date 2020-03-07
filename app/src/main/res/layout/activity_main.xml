@@ -29,7 +29,7 @@
             android:textSize="@dimen/activity_title" />
 
         <ListView
-            android:id="@+id/locale_items"
+            android:id="@+id/main_items"
             style="@android:style/Widget.Material.ListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

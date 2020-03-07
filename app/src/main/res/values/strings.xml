@@ -16,8 +16,19 @@
         <item>設定</item>
     </string-array>
 
+    <!-- main activity icon -->
+    <string-array name="main_icons">
+        <item>@drawable/icon_faq</item>
+        <item>@drawable/icon_info</item>
+        <item>@drawable/icon_guide</item>
+        <item>@drawable/icon_catalog</item>
+        <item>@drawable/icon_database</item>
+        <item>@drawable/icon_journal</item>
+        <item>@drawable/icon_setting</item>
+    </string-array>
+
     <!-- localehelp activity title -->
-    <string name="locale_title">語言切換</string>
+    <string name="locale_title">設定</string>
 
     <!-- localehelp activity items -->
     <string-array name="locale_items">
@@ -26,7 +37,7 @@
     </string-array>
 
     <!-- localehelp activity icon -->
-    <string-array name="locale_icon">
+    <string-array name="locale_icons">
         <item>@drawable/icon_tw</item>
         <item>@drawable/icon_us</item>
     </string-array>

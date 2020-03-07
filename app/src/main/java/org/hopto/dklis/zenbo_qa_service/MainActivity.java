@@ -2,11 +2,15 @@ package org.hopto.dklis.zenbo_qa_service;
 
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
@@ -25,7 +29,11 @@ import org.json.JSONObject;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 // public class MainActivity extends AppCompatActivity {
 public class MainActivity extends RobotActivity {
@@ -48,13 +56,17 @@ public class MainActivity extends RobotActivity {
     /**
      * @param listView      , (Object) 設定 ListView 資訊
      * @param listviewitems , (String Array) ListView Items 資訊
+     * @param listviewicons , (TypedArray) ListView Icons 資訊
      * @Param listAdapter   , (Object) 用來管理 ListView 資訊
      * @oaram font_size     , (float) font size 資訊
      * @param scale         , (float) Scaled Density 資訊
      */
     private ListView listView;
     private String[] listviewitems;
-    private ArrayAdapter listAdapter;
+    private TypedArray listviewicons;
+    private List<Map<String, Object>> itemList;
+    // private ArrayAdapter listAdapter;
+    private SimpleAdapter listAdapter;
     private int font_size;
     private float scale;
 
@@ -64,6 +76,9 @@ public class MainActivity extends RobotActivity {
      */
     public String lang    = "zh";
     public String country = "TW";
+
+    private static final String ITEM_TITLE = "Item title";
+    private static final String ITEM_ICON  = "Item icon";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,28 +197,69 @@ public class MainActivity extends RobotActivity {
          * (1) 將 resource 的 main_items array 資訊放入 listviewitems
          * (2) 將 listView 的 text alignment 設為 center
          */
-        listView = (ListView)findViewById(R.id.locale_items);
+        /**
+        listView = (ListView)findViewById(R.id.main_items);
         listviewitems = getResources().getStringArray(R.array.main_items);
         listView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+         */
 
         /**
-         * 使用 ArrayAdpater 管理 ListView 的資訊
+         * 設定 listview 的資訊
+         * (1) 將 resource 的 main_items array 資訊放入 listviewitems
+         * (2) 將 resource 的 main_icons array 資訊放入 listviewicons
+         * (3) 將 listView 的 text alignment 設為 center
          */
-        listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listviewitems) {
+        listView = (ListView)findViewById(R.id.main_items);
+        listviewitems = getResources().getStringArray(R.array.main_items);
+        listviewicons = getResources().obtainTypedArray(R.array.main_icons);
+        listView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+        itemList = new ArrayList<Map<String, Object>>();
+        itemList.clear();
+        for (int i = 0; i < listviewitems.length; i += 1) {
+            Map<String, Object> item = new HashMap<String, Object>();
+            item.put(ITEM_TITLE, listviewitems[i]);
+            item.put(ITEM_ICON, listviewicons.getResourceId(i,0));
+            itemList.add(item);
+        }
+
+        /**
+         * (x) 使用 ArrayAdpater 管理 ListView 的資訊
+         * 使用 SimpleAdapter 管理 ListView 的資訊
+         * (1) 將 res 內 main_items 與 main_icons 的資訊，透過 SimpleAdapter 分別把 text 與 icon 放置
+         *     到 list_view_item 的 layout 內
+         * (2) list_view_item 的 layout 資訊將塞入 ListView 內。
+         */
+        listAdapter = new SimpleAdapter(getBaseContext(), itemList, R.layout.list_view_item, new String[] {ITEM_TITLE, ITEM_ICON}, new int[] {R.id.txtView, R.id.imgView}) {
+        // listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listviewitems) {
+
+            /**
+             * runtime 設定
+             * (1) 變更 textView 的 font size
+             * (2) 將 textView 的 text alignment 設為 center
+             * (3) 設定 text color
+             */
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
 
                 /**
-                 * runtime 設定
-                 * (1) 變更 textView 的 font size
-                 * (2) 將 textView 的 text alignment 設為 center
-                 * (3) 設定 text color
+                 * 透過 (Layout) list_view_item 內的元件 id 資訊，來修改元件內的參數設定。
+                 * (1) 修改 textview 的屬性設定，如：文字大小、顏色、align位置。
+                 * (2) 修改 LinearLayout 的屬性設定，如：align位置。
                  */
-                TextView textView=(TextView) view.findViewById(android.R.id.text1);
+                TextView textView=(TextView) view.findViewById(R.id.txtView);
                 textView.setTextSize(font_size);
-                textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                // textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 textView.setTextColor(Color.RED);
+
+                /*
+                ImageView imageView=(ImageView) view.findViewById(R.id.imgView);
+                imageView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                */
+
+                LinearLayout layout = (LinearLayout) view.findViewById(R.id.layout_items);
+                layout.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
 
                 return view;
             }
@@ -236,7 +292,7 @@ public class MainActivity extends RobotActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent;
             Uri uri;
-            TextView txtvw = (TextView) view;
+            TextView v = (TextView) view.findViewById(R.id.txtView);;
 
             switch (position) {
                 case 0: {
@@ -289,7 +345,7 @@ public class MainActivity extends RobotActivity {
                     intent = new Intent(getApplicationContext(), LocaleHelp.class);
 
                     intent.putExtra("pos", position);
-                    intent.putExtra("item_name", txtvw.getText().toString());
+                    intent.putExtra("item_name", v.getText().toString());
                     intent.putExtra("lang", lang);
                     intent.putExtra("country", country);
 
@@ -297,8 +353,7 @@ public class MainActivity extends RobotActivity {
                 }  break;
             }
 
-
-            Toast.makeText(MainActivity.this, "點選第 "+position+" 個 \n內容："+txtvw.getText().toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "點選第 "+position+" 個 \n內容："+v.getText().toString(), Toast.LENGTH_LONG).show();
         }
     };
 
