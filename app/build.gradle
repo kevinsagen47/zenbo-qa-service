@@ -35,7 +35,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.android.support:multidex:1.0.3'
-    implementation files('libs/poishadow-all.jar')
+    /** https://github.com/centic9/poi-on-android/releases */
+    implementation files('libs/poishadow-all-0.6.jar')
     implementation project(':RobotActivityLibrary')
     api files('../ZenboSDK/ZenboSDK.jar')
 }

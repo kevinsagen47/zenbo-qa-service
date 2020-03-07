@@ -8,8 +8,8 @@
 
     <!-- main activity items -->
     <string-array name="main_items">
-        <item>常用問題</item>
-        <item>問題服務</item>
+        <item>常見問題</item>
+        <item>樓層介紹</item>
         <item>服務導覽</item>
         <item>館藏查詢</item>
         <item>資料庫查詢</item>
@@ -28,13 +28,34 @@
         <item>@drawable/icon_setting</item>
     </string-array>
 
-    <!-- localehelp activity title -->
-    <string name="locale_title">設定</string>
+    <!-- floor activity items -->
+    <string-array name="floor_items">
+        <item>開放時間</item>
+        <item>B1 配置</item>
+        <item>3F 配置</item>
+        <item>4F 配置</item>
+        <item>5F 配置</item>
+        <item>6F 配置</item>
+        <item>7F 配置</item>
+        <item>8F 配置</item>
+    </string-array>
+
+    <!-- floor activity items -->
+    <string-array name="floor_icons">
+        <item>@drawable/icon_open</item>
+        <item>@drawable/icon_layout_0</item>
+        <item>@drawable/icon_layout_0</item>
+        <item>@drawable/icon_layout_0</item>
+        <item>@drawable/icon_layout_0</item>
+        <item>@drawable/icon_layout_0</item>
+        <item>@drawable/icon_layout_0</item>
+        <item>@drawable/icon_layout_0</item>
+    </string-array>
 
     <!-- localehelp activity items -->
     <string-array name="locale_items">
         <item>繁體中文</item>
-        <item>英文</item>
+        <item>English</item>
     </string-array>
 
     <!-- localehelp activity icon -->

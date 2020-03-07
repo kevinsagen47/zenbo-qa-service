@@ -72,9 +72,11 @@ public class LocaleHelp extends RobotActivity {
     /**
      * @param lang    , (String) string for language
      * @param country , (String) string for country
+     * @param title   , (String) string for activity title
      */
     private String lang    = "zh";
     private String country = "TW";
+    private String title   = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,22 @@ public class LocaleHelp extends RobotActivity {
      */
     private void get_Intent(boolean toast_disp) {
         Intent intent = getIntent();
+
+        /**
+         * get item information
+         */
+        try {
+            title = intent.getStringExtra("item_name");
+            if (title == null) {
+                title = "";
+            }
+        } catch (Exception e){
+            Log.e("LocaleHelp - item_name", "error "+ e.toString());
+            if (toast_disp) {
+                Toast.makeText(getBaseContext(), "item_name error " + e.toString(), Toast.LENGTH_LONG).show();
+            }
+            title = "";
+        }
 
         /**
          * get language information
@@ -154,7 +172,7 @@ public class LocaleHelp extends RobotActivity {
 
         // 設定 Activity 的標題
         TextView textview = (TextView)findViewById(R.id.locale_title);
-        textview.setText(R.string.locale_title);
+        textview.setText(title);
 
         /**
          *  從 resource values 讀取 dimens.xml 資料 , 將 dimens sp 數值轉換 pixels

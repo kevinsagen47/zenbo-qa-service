@@ -299,7 +299,14 @@ public class MainActivity extends RobotActivity {
 
                 }  break;
                 case 1: {
+                    intent = new Intent(getApplicationContext(), FloorLayout.class);
 
+                    intent.putExtra("pos", position);
+                    intent.putExtra("item_name", v.getText().toString());
+                    intent.putExtra("lang", lang);
+                    intent.putExtra("country", country);
+
+                    startActivity(intent);
                 }  break;
                 case 2: {
 

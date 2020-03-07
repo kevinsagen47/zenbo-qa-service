@@ -8,8 +8,8 @@
 
     <!-- main activity items -->
     <string-array name="main_items">
-        <item>FAQs1</item>
-        <item>FAQs2</item>
+        <item>FAQ</item>
+        <item>Floor Plans</item>
         <item>Guided Tour</item>
         <item>Library Catalog</item>
         <item>Find Database</item>
@@ -28,12 +28,33 @@
         <item>@drawable/icon_setting</item>
     </string-array>
 
-    <!-- localehelp activity title -->
-    <string name="locale_title">Setting</string>
+    <!-- floor activity items -->
+    <string-array name="floor_items">
+        <item>Opening hours</item>
+        <item>B1 Floor Plans</item>
+        <item>3F Floor Plans</item>
+        <item>4F Floor Plans</item>
+        <item>5F Floor Plans</item>
+        <item>6F Floor Plans</item>
+        <item>7F Floor Plans</item>
+        <item>8F Floor Plans</item>
+    </string-array>
+
+    <!-- floor activity items -->
+    <string-array name="floor_icons">
+        <item>@drawable/icon_open</item>
+        <item>@drawable/icon_layout_0</item>
+        <item>@drawable/icon_layout_0</item>
+        <item>@drawable/icon_layout_0</item>
+        <item>@drawable/icon_layout_0</item>
+        <item>@drawable/icon_layout_0</item>
+        <item>@drawable/icon_layout_0</item>
+        <item>@drawable/icon_layout_0</item>
+    </string-array>
 
     <!-- localehelp activity items -->
     <string-array name="locale_items">
-        <item>Traditional Chinese</item>
+        <item>繁體中文</item>
         <item>English</item>
     </string-array>
 
