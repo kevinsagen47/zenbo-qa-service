@@ -14,12 +14,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FloorLayout"></activity>
+        <activity android:name=".qa_answer"></activity>
+        <activity android:name=".qa_question" />
+        <activity android:name=".qa_category" />
+        <activity android:name=".FloorLayout" />
         <activity android:name=".LocaleHelp" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="com.asus.intent.category.ZENBO" />
+                <category android:name="com.asus.intent.category.ZENBO_LAUNCHER" />
+
+                <!-- please comment out the following line when you want to launch to Zenbo App Store -->
+                <!-- See Zenbo Developer Web: Zenbo-SDK-Getting-Started: Important notes on Zenbo APP developing -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

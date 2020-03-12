@@ -1,6 +1,8 @@
 package org.hopto.dklis.zenbo_qa_service;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -29,6 +31,11 @@ import org.json.JSONObject;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +44,8 @@ import java.util.Map;
 
 // public class MainActivity extends AppCompatActivity {
 public class MainActivity extends RobotActivity {
+    private static final int REQUEST_PERMISSION_FOR_WRITE_EXTERNAL_STORAGE = 100;
+
     // scope......
     static {
         System.setProperty(
@@ -109,6 +118,8 @@ public class MainActivity extends RobotActivity {
         this.View_Control(false);
 
         this.head_pos(0, 30);
+
+        askForWriteExternalStoragePermission();
     }
 
     /**
@@ -296,7 +307,14 @@ public class MainActivity extends RobotActivity {
 
             switch (position) {
                 case 0: {
+                    intent = new Intent(getApplicationContext(), qa_category.class);
 
+                    intent.putExtra("pos", position);
+                    intent.putExtra("item_name", v.getText().toString());
+                    intent.putExtra("lang", lang);
+                    intent.putExtra("country", country);
+
+                    startActivity(intent);
                 }  break;
                 case 1: {
                     intent = new Intent(getApplicationContext(), FloorLayout.class);
@@ -431,5 +449,63 @@ public class MainActivity extends RobotActivity {
         float pitch = (float)Math.toRadians(Float.valueOf(y_pitch));
 
         robotAPI.motion.moveHead(yaw, pitch, MotionControl.SpeedLevel.Head.L1);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        // 檢查收到的權限要求編號是否和我們送出的相同
+        if (requestCode == REQUEST_PERMISSION_FOR_WRITE_EXTERNAL_STORAGE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(MainActivity.this, "取得 WRITE_EXTERNAL_STORAGE 權限",
+                        Toast.LENGTH_SHORT)
+                        .show();
+                return;
+            }
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void askForWriteExternalStoragePermission() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED) {
+            // 這項功能尚未取得使用者的同意
+            // 開始執行徵詢使用者的流程
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    MainActivity.this,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                AlertDialog.Builder altDlgBuilder =
+                        new AlertDialog.Builder(MainActivity.this);
+                altDlgBuilder.setTitle("提示");
+                altDlgBuilder.setMessage("App需要讀寫SD卡中的資料。");
+                altDlgBuilder.setIcon(android.R.drawable.ic_dialog_info);
+                altDlgBuilder.setCancelable(false);
+                altDlgBuilder.setPositiveButton("確定",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // 顯示詢問使用者是否同意功能權限的對話盒
+                                // 使用者答覆後會執行onRequestPermissionsResult()
+                                ActivityCompat.requestPermissions(MainActivity.this,
+                                        new String[]{
+                                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                        REQUEST_PERMISSION_FOR_WRITE_EXTERNAL_STORAGE);
+                            }
+                        });
+                altDlgBuilder.show();
+
+                return;
+            } else {
+                // 顯示詢問使用者是否同意功能權限的對話盒
+                // 使用者答覆後會執行onRequestPermissionsResult()
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{
+                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_PERMISSION_FOR_WRITE_EXTERNAL_STORAGE);
+
+                return;
+            }
+        }
     }
 }

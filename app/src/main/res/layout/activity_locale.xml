@@ -8,7 +8,7 @@
     tools:context=".LocaleHelp">
 
     <LinearLayout
-        android:id="@+id/linear_main"
+        android:id="@+id/linear_locale"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

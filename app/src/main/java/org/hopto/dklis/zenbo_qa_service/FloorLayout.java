@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -281,28 +282,30 @@ public class FloorLayout extends RobotActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent;
+            Uri uri;
             TextView v = (TextView) view.findViewById(R.id.txtView);
 
-            /*switch (position) {
-                case 1: {
-                    lang    = "en";
-                    country = "US";
+            switch (position) {
+                case 0: {
+                    switch (lang) {
+                        case "zh":
+                        default: {
+                            uri = Uri.parse("https://lis.nsysu.edu.tw/p/412-1001-3560.php?Lang=zh-tw");
+                        }  break;
+                        case "en": {
+                            uri = Uri.parse("https://lis.nsysu.edu.tw/p/412-1001-3560.php?Lang=en");
+                        }  break;
+                    }
+
+                    intent = new Intent(Intent.ACTION_VIEW, uri);
+
+                    startActivity(intent);
                 }  break;
-                case 0:
+                case 1:
                 default: {
-                    lang    = "zh";
-                    country = "TW";
+
                 }  break;
             }
-
-            intent = new Intent(getApplicationContext(), MainActivity.class);
-
-            intent.putExtra("pos", position);
-            intent.putExtra("item_name", v.getText().toString());
-            intent.putExtra("lang", lang);
-            intent.putExtra("country", country);
-
-            startActivity(intent);*/
 
             Toast.makeText(getBaseContext(), "點選第 "+position+" 個 \n內容："+v.getText().toString(), Toast.LENGTH_LONG).show();
         }

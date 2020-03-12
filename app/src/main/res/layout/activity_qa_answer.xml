@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".qa_answer">
+
+    <LinearLayout
+        android:id="@+id/linear_qa_answer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <TextView
+            android:id="@+id/qa_answer_title"
+            style="@style/Widget.Support.CoordinatorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_dark"
+            android:hint="@string/app_name"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textColorHighlight="@android:color/holo_orange_dark"
+            android:textColorLink="@android:color/holo_red_light"
+            android:textSize="@dimen/activity_title" />
+
+        <TextView
+            android:id="@+id/qa_answer_items"
+            style="@android:style/Widget.Material.ListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginBottom="10sp"
+            android:background="@android:color/darker_gray"
+            android:dividerHeight="1sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

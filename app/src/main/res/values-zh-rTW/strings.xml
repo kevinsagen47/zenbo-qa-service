@@ -28,6 +28,91 @@
         <item>@drawable/icon_setting</item>
     </string-array>
 
+    <!-- qa_category activity items -->
+    <string-array name="qa_category_items">
+        <item>入館資訊</item>
+        <item>論文查詢</item>
+        <item>電子資源</item>
+        <item>多媒體資源</item>
+        <item>授權軟體</item>
+        <item>電子信箱</item>
+    </string-array>
+
+    <!-- qa_category activity icons -->
+    <string-array name="qa_category_icons">
+        <item>@drawable/icon_guide</item>
+        <item>@drawable/icon_catalog</item>
+        <item>@drawable/icon_database</item>
+        <item>@drawable/icon_software</item>
+        <item>@drawable/icon_email</item>
+    </string-array>
+
+    <!-- qa_question activity entrance items -->
+    <string-array name="entrance_items">
+        <item>資料庫視聽服務開放時間</item>
+        <item>影印與列印資料</item>
+    </string-array>
+
+    <!-- qa_question activity entrance icons -->
+    <string-array name="entrance_icons">
+        <item>@drawable/icon_info</item>
+        <item>@drawable/icon_info</item>
+    </string-array>
+
+    <!-- qa_question activity opentime items -->
+    <string-array name="opentime_items">
+        <item>https://lis.nsysu.edu.tw/p/412-1001-3560.php?Lang=zh-tw</item>
+        <item>您好，四樓「資料庫視聽服務」開放時間，</item>
+        <item>週一到週五，白天開放時間為早上八點三十分至下午五點三十分，晚上從下午六點三十分服務至下午九點三十分，</item>
+        <item>週六從早上九點至下午四點三十分，中午十二點至下午一點休息時間暫停開放，</item>
+        <item>週日則不開放，詳細的開放時間可以參考「圖資處」網頁「服務時間」資訊。</item>
+    </string-array>
+
+    <!-- qa_question activity opentime items -->
+    <string-array name="printcopy_items">
+        <item></item>
+        <item>首先您必須持有影印卡才能影印列印資料，若沒有影印卡請先至三樓櫃台洽詢購買。</item>
+        <item>若您是要列印資料，請先至櫃檯借閱電腦座位，在列印資料的過程，電腦會跳列印出對話視窗，</item>
+        <item>請輸入影印卡上的卡號後，再到影印機插入卡片即可列印。</item>
+        <item>若您是要影印資料，您可以直接到櫃檯前的影印機，插入影印卡就能影印您所需要的資料。</item>
+        <item>除了四樓之外，圖資處，一、三、五樓皆提供影印、列印服務。</item>
+    </string-array>
+
+    <!-- qa_question activity thesis items -->
+    <string-array name="thesis_items">
+        <item>博碩士論文查詢</item>
+        <item>期刊論文查詢</item>
+        <item>會議論文查詢</item>
+    </string-array>
+
+    <!-- qa_question activity thesis icons -->
+    <string-array name="thesis_icons">
+        <item>@drawable/icon_info</item>
+        <item>@drawable/icon_info</item>
+        <item>@drawable/icon_info</item>
+    </string-array>
+
+    <!-- qa_question activity etd_thesis items -->
+    <string-array name="etd_thesis_items">
+        <item>https://etd.lis.nsysu.edu.tw/eThesys/index.php</item>
+        <item>您可以上「博碩士論文查詢」系統，查詢您所需要的「學位論文」資料。</item>
+        <item>如果有查找資料的問題，也可以至櫃檯詢問館員。</item>
+    </string-array>
+
+    <!-- qa_question activity journal items -->
+    <string-array name="journal_items">
+        <item>https://findit.lis.nsysu.edu.tw:3443/nsysu/journalsearch?lang=chi-traditional</item>
+        <item>若您要查詢的是「期刊論文」，您可以上「圖書與資訊處」「電子期刊」查詢系統，查找您所需要的資料。</item>
+        <item>如果有查找資料的問題，也可以至櫃檯詢問館員。</item>
+    </string-array>
+
+    <!-- qa_question activity conference items -->
+    <string-array name="conference_items">
+        <item>https://findit.lis.nsysu.edu.tw:3443/nsysu/journalsearch?lang=chi-traditional</item>
+        <item>若您要查詢的是「會議論文」，您可以上「圖書與資訊處」「電子期刊」查詢系統，查找您所需要的資料。</item>
+        <item>如果有查找資料的問題，也可以至櫃檯詢問館員。</item>
+    </string-array>
+
     <!-- floor activity items -->
     <string-array name="floor_items">
         <item>開放時間</item>
@@ -40,7 +125,7 @@
         <item>8F 配置</item>
     </string-array>
 
-    <!-- floor activity items -->
+    <!-- floor activity icons -->
     <string-array name="floor_icons">
         <item>@drawable/icon_open</item>
         <item>@drawable/icon_layout_0</item>
