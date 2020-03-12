@@ -44,17 +44,20 @@
         <item>@drawable/icon_catalog</item>
         <item>@drawable/icon_database</item>
         <item>@drawable/icon_software</item>
+        <item>@drawable/icon_software</item>
         <item>@drawable/icon_email</item>
     </string-array>
 
     <!-- qa_question activity entrance items -->
     <string-array name="entrance_items">
         <item>資料庫視聽服務開放時間</item>
+        <item>使用電腦</item>
         <item>影印與列印資料</item>
     </string-array>
 
     <!-- qa_question activity entrance icons -->
     <string-array name="entrance_icons">
+        <item>@drawable/icon_info</item>
         <item>@drawable/icon_info</item>
         <item>@drawable/icon_info</item>
     </string-array>
@@ -66,6 +69,13 @@
         <item>週一到週五，白天開放時間為早上八點三十分至下午五點三十分，晚上從下午六點三十分服務至下午九點三十分，</item>
         <item>週六從早上九點至下午四點三十分，中午十二點至下午一點休息時間暫停開放，</item>
         <item>週日則不開放，詳細的開放時間可以參考「圖資處」網頁「服務時間」資訊。</item>
+    </string-array>
+
+    <!-- qa_question activity computer items -->
+    <string-array name="computer_items">
+        <item></item>
+        <item>您可以拿「自己的」「學生證」到櫃檯辦理借閱座位，</item>
+        <item>就能使用學校所提供的電腦與電子資源。</item>
     </string-array>
 
     <!-- qa_question activity opentime items -->
@@ -111,6 +121,94 @@
         <item>https://findit.lis.nsysu.edu.tw:3443/nsysu/journalsearch?lang=chi-traditional</item>
         <item>若您要查詢的是「會議論文」，您可以上「圖書與資訊處」「電子期刊」查詢系統，查找您所需要的資料。</item>
         <item>如果有查找資料的問題，也可以至櫃檯詢問館員。</item>
+    </string-array>
+
+    <!-- qa_question activity eresource items -->
+    <string-array name="eresource_items">
+        <item>電子資料庫</item>
+        <item>電子書</item>
+    </string-array>
+
+    <!-- qa_question activity eresource icons -->
+    <string-array name="eresource_icons">
+        <item>@drawable/icon_info</item>
+        <item>@drawable/icon_info</item>
+    </string-array>
+
+    <!-- qa_question activity database items -->
+    <string-array name="database_items">
+        <item>https://service.lis.nsysu.edu.tw/database/?lang=zh</item>
+        <item>請到「圖資處」首頁，館藏服務中點選「電子資料庫」連結，</item>
+        <item>開啟後選擇學院瀏覽，依需求瀏覽各學院相關電子資料庫。</item>
+    </string-array>
+
+    <!-- qa_question activity ebook items -->
+    <string-array name="ebook_items">
+        <item>https://lis.nsysu.edu.tw/p/412-1001-8442.php?Lang=zh-tw</item>
+        <item>請您可以到「圖資處」首頁「館藏服務」內「查詢系統」的「電子書」資訊，</item>
+        <item>裡面有詳細的使用說明喔，若有問題可以至櫃台洽詢。</item>
+    </string-array>
+
+    <!-- qa_question activity media items -->
+    <string-array name="media_items">
+        <item>電影影集觀賞</item>
+    </string-array>
+
+    <!-- qa_question activity media icons -->
+    <string-array name="media_icons">
+        <item>@drawable/icon_info</item>
+    </string-array>
+
+    <!-- qa_question activity database items -->
+    <string-array name="movie_items">
+        <item>https://service.lis.nsysu.edu.tw/mul_media/</item>
+        <item>請您可以上「圖書與資訊處」「多媒體服務」網站，</item>
+        <item>找到想看的影片，再拿學生證到櫃台辦理借閱設備與座位。</item>
+    </string-array>
+
+    <!-- qa_question activity software items -->
+    <string-array name="software_items">
+        <item>授權軟體</item>
+        <item>Office365</item>
+    </string-array>
+
+    <!-- qa_question activity software icons -->
+    <string-array name="software_icons">
+        <item>@drawable/icon_info</item>
+        <item>@drawable/icon_info</item>
+    </string-array>
+
+    <!-- qa_question activity software_u items -->
+    <string-array name="software_u_items">
+        <item>https://lis.nsysu.edu.tw/p/412-1001-18077.php?Lang=zh-tw</item>
+        <item>使用windows作業系統或SAS與SPSS統計軟體，可以至「圖資處」的「授權軟體」網頁，點選「軟體下載」，</item>
+        <item>在校內登入後即可選擇您要的系統版本進行下載，自行燒製安裝光碟或USB即可。</item>
+        <item>櫃台亦提供實體光碟租借服務，可攜帶您的學生證洽詢櫃台人員。</item>
+    </string-array>
+
+    <!-- qa_question activity office365 items -->
+    <string-array name="office365_items">
+        <item>https://lis.nsysu.edu.tw/p/405-1001-191366,c11642.php?Lang=zh-tw</item>
+        <item>圖資處，提供Office三六五申請服務，在學期間皆可使用最新的Office版本與相關應用服務，</item>
+        <item>詳細資訊請至「圖資處」的「授權軟體」網頁，在「授權軟體清單」中，有「Office 三六五」的詳細操作說明。</item>
+    </string-array>
+
+    <!-- qa_question activity email items -->
+    <string-array name="email_items">
+        <item>學生電子信箱</item>
+    </string-array>
+
+    <!-- qa_question activity software icons -->
+    <string-array name="email_icons">
+        <item>@drawable/icon_info</item>
+    </string-array>
+
+    <!-- qa_question activity software_u items -->
+    <string-array name="email_qa_items">
+        <item>https://email.nsysu.edu.tw/webmail/problem.php</item>
+        <item>畢業學生在離校之前需完成郵件轉寄設定，之後郵件自動轉寄至設定的郵件信箱，</item>
+        <item>學校不再保存一份，但仍維持該帳號的有效性。</item>
+        <item>若還有其他電子信箱的問題，您可以洽詢櫃台人員，或參考中山大學 webmail 常見問題。</item>
     </string-array>
 
     <!-- floor activity items -->

@@ -223,6 +223,22 @@ public class qa_question extends RobotActivity {
                 listviewitems = getResources().getStringArray(R.array.thesis_items);
                 listviewicons = getResources().obtainTypedArray(R.array.thesis_icons);
             }  break;
+            case 2: {
+                listviewitems = getResources().getStringArray(R.array.eresource_items);
+                listviewicons = getResources().obtainTypedArray(R.array.eresource_icons);
+            }  break;
+            case 3: {
+                listviewitems = getResources().getStringArray(R.array.media_items);
+                listviewicons = getResources().obtainTypedArray(R.array.media_icons);
+            }  break;
+            case 4: {
+                listviewitems = getResources().getStringArray(R.array.software_items);
+                listviewicons = getResources().obtainTypedArray(R.array.software_icons);
+            }  break;
+            case 5: {
+                listviewitems = getResources().getStringArray(R.array.email_items);
+                listviewicons = getResources().obtainTypedArray(R.array.email_icons);
+            }  break;
         }
 
         listView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);

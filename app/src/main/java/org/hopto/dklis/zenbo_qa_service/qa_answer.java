@@ -227,6 +227,9 @@ public class qa_answer extends RobotActivity {
                         answer_strings = getResources().getStringArray(R.array.opentime_items);
                     }  break;
                     case 1: {
+                        answer_strings = getResources().getStringArray(R.array.computer_items);
+                    }  break;
+                    case 2: {
                         answer_strings = getResources().getStringArray(R.array.printcopy_items);
                     }  break;
                 }
@@ -241,6 +244,40 @@ public class qa_answer extends RobotActivity {
                     }  break;
                     case 2: {
                         answer_strings = getResources().getStringArray(R.array.conference_items);
+                    }  break;
+                }
+            }  break;
+            case 2: {
+                switch (question) {
+                    case 0: {
+                        answer_strings = getResources().getStringArray(R.array.database_items);
+                    }  break;
+                    case 1: {
+                        answer_strings = getResources().getStringArray(R.array.ebook_items);
+                    }  break;
+                }
+            }  break;
+            case 3: {
+                switch (question) {
+                    case 0: {
+                        answer_strings = getResources().getStringArray(R.array.movie_items);
+                    }  break;
+                }
+            }  break;
+            case 4: {
+                switch (question) {
+                    case 0: {
+                        answer_strings = getResources().getStringArray(R.array.software_u_items);
+                    }  break;
+                    case 1: {
+                        answer_strings = getResources().getStringArray(R.array.office365_items);
+                    }  break;
+                }
+            }  break;
+            case 5: {
+                switch (question) {
+                    case 0: {
+                        answer_strings = getResources().getStringArray(R.array.email_qa_items);
                     }  break;
                 }
             }  break;
