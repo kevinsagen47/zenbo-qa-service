@@ -1,6 +1,7 @@
 package org.hopto.dklis.zenbo_qa_service;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -25,6 +26,9 @@ import com.asus.robotframework.API.RobotCallback;
 import com.asus.robotframework.API.RobotCmdState;
 import com.asus.robotframework.API.RobotCommand;
 import com.asus.robotframework.API.RobotErrorCode;
+import com.asus.robotframework.API.RobotFace;
+import com.asus.robotframework.API.RobotUtil;
+import com.asus.robotframework.API.SpeakConfig;
 import com.robot.asus.robotactivity.RobotActivity;
 
 import org.json.JSONObject;
@@ -45,6 +49,15 @@ import java.util.Map;
 // public class MainActivity extends AppCompatActivity {
 public class MainActivity extends RobotActivity {
     private static final int REQUEST_PERMISSION_FOR_WRITE_EXTERNAL_STORAGE = 100;
+
+    public final static String TAG = "MainActivity";
+    /**
+     * 必要的 DOMAIN UUID
+     */
+    public final static String DOMAIN = "1C03CD53372F458EBB0E62E176B50FF8";
+
+    // private static RobotActivity m_activity;
+    private static Context context;
 
     // scope......
     static {
@@ -83,8 +96,11 @@ public class MainActivity extends RobotActivity {
      * @param lang    , (String) string for language
      * @param country , (String) string for country
      */
-    public String lang    = "zh";
-    public String country = "TW";
+/*    public String lang    = "zh";
+    public String country = "TW";*/
+
+    public static String lang    = "zh";
+    public static String country = "TW";
 
     private static final String ITEM_TITLE = "Item title";
     private static final String ITEM_ICON  = "Item icon";
@@ -121,6 +137,16 @@ public class MainActivity extends RobotActivity {
 
         askForWriteExternalStoragePermission();
     }
+
+    /**
+     * Returns a "static" application context. Don't try to create dialogs on
+     * this, it's not gonna work!
+     *
+     * @return
+     */
+    /*public static Context getContext() {
+        return context;
+    }*/
 
     /**
      * 取得 activity 傳遞的參數
@@ -180,6 +206,9 @@ public class MainActivity extends RobotActivity {
         /**
          * 取得畫面元件後指定給欄位變數。
          */
+
+        // context = this;
+        context = getApplicationContext();
 
         /* Scaled Density 資訊 */
         this.scale = getResources().getDisplayMetrics().scaledDensity;
@@ -417,16 +446,113 @@ public class MainActivity extends RobotActivity {
 
         @Override
         public void onSpeakComplete(String s, String s1) {
-            Log.d("RobotDevSample", "speak Complete");
+            Log.d(TAG, "speak Complete");
         }
 
         @Override
         public void onEventUserUtterance(JSONObject jsonObject) {
-
+            String text;
+            text = "onEventUserUtterance: " + jsonObject.toString();
+            Log.d(TAG, text);
         }
 
         @Override
         public void onResult(JSONObject jsonObject) {
+            String text;
+            text = "onResult: " + jsonObject.toString();
+            Log.d(TAG, text);
+
+            /**
+             *  讀取 IntentionId 的資訊。
+             */
+            String sIntentionID = RobotUtil.queryListenResultJson(jsonObject, "IntentionId");
+            Log.d(TAG, "Intention Id = " + sIntentionID);
+
+            if(sIntentionID.equals("main_activity_plans")) {
+                String sSluResultCity = RobotUtil.queryListenResultJson(jsonObject, "main_class", null);
+                Log.d(TAG, "Result City = " + sSluResultCity);
+
+                if(sSluResultCity!= null) {
+                    Intent intent;
+                    Uri uri;
+                    String[] main_items = context.getResources().getStringArray(R.array.main_items);
+
+                    switch (sSluResultCity) {
+                        case "faq": {
+                            intent = new Intent(context, qa_category.class);
+
+                            intent.putExtra("pos", 0);
+                            intent.putExtra("item_name", main_items[0]);
+                            intent.putExtra("lang", lang);
+                            intent.putExtra("country", country);
+
+                            context.startActivity(intent);
+                        }  break;
+                        case "floor": {
+                            intent = new Intent(context, FloorLayout.class);
+
+                            intent.putExtra("pos", 1);
+                            intent.putExtra("item_name", main_items[1]);
+                            intent.putExtra("lang", lang);
+                            intent.putExtra("country", country);
+
+                            context.startActivity(intent);
+                        }  break;
+                        case "guide": {
+
+                        }  break;
+                        case "catalog": {
+                            switch (lang) {
+                                case "zh":
+                                default: {
+                                    uri = Uri.parse("https://dec.lib.nsysu.edu.tw/search~S1*cht/");
+                                }  break;
+                                case "en": {
+                                    uri = Uri.parse("https://dec.lib.nsysu.edu.tw/search~S1*eng/");
+                                }  break;
+                            }
+
+                            intent = new Intent(Intent.ACTION_VIEW, uri);
+
+                            context.startActivity(intent);
+                        }  break;
+                        case "database": {
+                            uri = Uri.parse("https://service.lis.nsysu.edu.tw/database/?lang="+lang);
+
+                            intent = new Intent(Intent.ACTION_VIEW, uri);
+
+                            context.startActivity(intent);
+                        }  break;
+                        case "ejournal": {
+                            switch (lang) {
+                                case "zh":
+                                default: {
+                                    uri = Uri.parse("https://findit.lis.nsysu.edu.tw:3443/nsysu/journalsearch?lang=cht");
+                                }  break;
+                                case "en": {
+                                    uri = Uri.parse("https://findit.lis.nsysu.edu.tw:3443/nsysu/journalsearch?lang=eng");
+                                }  break;
+                            }
+
+                            intent = new Intent(Intent.ACTION_VIEW, uri);
+
+                            context.startActivity(intent);
+                        }  break;
+                        case "setting": {
+                            intent = new Intent(context, LocaleHelp.class);
+
+                            intent.putExtra("pos", 6);
+                            intent.putExtra("item_name", main_items[6]);
+                            intent.putExtra("lang", lang);
+                            intent.putExtra("country", country);
+
+                            context.startActivity(intent);
+                        }  break;
+                    }
+
+
+                }
+            }
         }
 
         @Override
@@ -507,5 +633,35 @@ public class MainActivity extends RobotActivity {
                 return;
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // close face
+        robotAPI.robot.setExpression(RobotFace.HIDEFACE);
+
+        // jump dialog domain
+        /**
+         * 指向開始的 plan 位址
+         */
+        robotAPI.robot.jumpToPlan(DOMAIN, "ThisPlanLaunchingThisApp");
+
+        // listen user utterance
+        robotAPI.robot.speakAndListen("您好，還迎來到圖書與資訊處~", new SpeakConfig().timeout(20));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //stop listen user utterance
+        robotAPI.robot.stopSpeakAndListen();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

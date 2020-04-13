@@ -14,6 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="zenbo_ds_domainuuid" android:value="1C03CD53372F458EBB0E62E176B50FF8"/>
+        <meta-data android:name="zenbo_ds_version_1C03CD53372F458EBB0E62E176B50FF8" android:value="0.0.1"/>
+
         <activity android:name=".qa_answer"></activity>
         <activity android:name=".qa_question" />
         <activity android:name=".qa_category" />

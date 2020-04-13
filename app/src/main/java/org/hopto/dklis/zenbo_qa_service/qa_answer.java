@@ -3,6 +3,7 @@ package org.hopto.dklis.zenbo_qa_service;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -54,9 +55,13 @@ public class qa_answer extends RobotActivity {
     /**
      * @param answer_strings , (String Array) ListView Items 資訊
      */
-    private String[] answer_strings;
+    private static String[] answer_strings;
     private int font_size;
     private float scale;
+
+    private static Context mContext;
+    private static boolean isOpened;
+    private static int isCmdCount;
 
     /**
      * @param lang     , (String)  string for language
@@ -75,6 +80,8 @@ public class qa_answer extends RobotActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qa_answer);
+
+        mContext = this;
 
         this.get_Intent(false);
         this.Views_Initial(false);
@@ -170,6 +177,9 @@ public class qa_answer extends RobotActivity {
             }
             question = 0;
         }
+
+        isOpened = false;
+        isCmdCount = 0;
     }
 
     /**
@@ -341,15 +351,52 @@ public class qa_answer extends RobotActivity {
         @Override
         public void onResult(int cmd, int serial, RobotErrorCode err_code, Bundle result) {
             super.onResult(cmd, serial, err_code, result);
-            Log.d("RobotDevSample", "onResult:"
+
+            String txt_out = "onResult:"
                     + RobotCommand.getRobotCommand(cmd).name()
                     + ", serial:" + serial + ", err_code:" + err_code
-                    + ", result:" + result.getString("RESULT"));
+                    + ", result:" + result.getString("RESULT");
+
+            Log.d("RobotDevSample", txt_out);
+
+            // Toast.makeText(mContext, txt_out, Toast.LENGTH_SHORT).show();
+            /*if (cmd == 61) {  // DS_SERVICE_CONNECT : connect to DS service
+                Toast.makeText(mContext, txt_out, Toast.LENGTH_SHORT).show();
+            }*/
+
         }
 
         @Override
         public void onStateChange(int cmd, int serial, RobotErrorCode err_code, RobotCmdState state) {
             super.onStateChange(cmd, serial, err_code, state);
+            String txt_out = "onStateChange:"
+                    + RobotCommand.getRobotCommand(cmd).name()
+                    + ", serial:" + serial + ", err_code:" + err_code
+                    + ", state:" + state.toString();
+
+            Toast.makeText(mContext, txt_out, Toast.LENGTH_SHORT).show();
+            /*if (cmd == 61) {  // DS_SERVICE_CONNECT : connect to DS service
+                // Toast.makeText(mContext, txt_out, Toast.LENGTH_SHORT).show();
+
+                if (isCmdCount > 0) {
+                    if (isOpened == false) {
+                        isOpened = true;
+                        try {
+                            Intent intent;
+                            Uri uri;
+
+                            uri = Uri.parse(answer_strings[0]);
+                            intent = new Intent(Intent.ACTION_VIEW, uri);
+
+                            mContext.startActivity(intent);
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+
+                isCmdCount += 1;
+            }*/
         }
 
         @Override
