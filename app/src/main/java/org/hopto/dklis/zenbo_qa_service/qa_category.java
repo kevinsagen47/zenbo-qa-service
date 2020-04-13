@@ -3,6 +3,7 @@ package org.hopto.dklis.zenbo_qa_service;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -24,6 +25,9 @@ import com.asus.robotframework.API.RobotCallback;
 import com.asus.robotframework.API.RobotCmdState;
 import com.asus.robotframework.API.RobotCommand;
 import com.asus.robotframework.API.RobotErrorCode;
+import com.asus.robotframework.API.RobotFace;
+import com.asus.robotframework.API.RobotUtil;
+import com.asus.robotframework.API.SpeakConfig;
 import com.robot.asus.robotactivity.RobotActivity;
 
 import org.json.JSONObject;
@@ -38,6 +42,15 @@ import java.util.Map;
 public class qa_category extends RobotActivity {
     private static final String ITEM_TITLE = "Item title";
     private static final String ITEM_ICON  = "Item icon";
+
+    public final static String TAG = "QA_Category";
+    /**
+     * 必要的 DOMAIN UUID
+     */
+    public final static String DOMAIN = "1C03CD53372F458EBB0E62E176B50FF8";
+
+    // private static RobotActivity m_activity;
+    private static Context context;
 
     // scope......
     static {
@@ -77,9 +90,13 @@ public class qa_category extends RobotActivity {
      * @param country , (String) string for country
      * @param title   , (String) string for activity title
      */
-    private String lang    = "zh";
+/*    private String lang    = "zh";
     private String country = "TW";
-    private String title   = "";
+    private String title   = "";*/
+
+    private static String lang    = "zh";
+    private static String country = "TW";
+    private static String title   = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +184,9 @@ public class qa_category extends RobotActivity {
         /**
          * 取得畫面元件後指定給欄位變數。
          */
+
+        // context = this;
+        context = getApplicationContext();
 
         /**
          * 抓取 android 系統 Scaled Density 資訊
@@ -354,16 +374,81 @@ public class qa_category extends RobotActivity {
 
         @Override
         public void onSpeakComplete(String s, String s1) {
-            Log.d("RobotDevSample", "speak Complete");
+            Log.d(TAG, "speak Complete");
         }
 
         @Override
         public void onEventUserUtterance(JSONObject jsonObject) {
-
+            String text;
+            text = "onEventUserUtterance: " + jsonObject.toString();
+            Log.d(TAG, text);
         }
 
         @Override
         public void onResult(JSONObject jsonObject) {
+            String text;
+            text = "onResult: " + jsonObject.toString();
+            Log.d(TAG, text);
+
+            /**
+             *  讀取 IntentionId 的資訊。
+             */
+            String sIntentionID = RobotUtil.queryListenResultJson(jsonObject, "IntentionId");
+            Log.d(TAG, "Intention Id = " + sIntentionID);
+
+            if(sIntentionID.equals("qa_category_plans")) {
+                String sSluResultCity = RobotUtil.queryListenResultJson(jsonObject, "qa_cate_class", null);
+                Log.d(TAG, "Result City = " + sSluResultCity);
+
+                if(sSluResultCity!= null) {
+                    Intent intent = new Intent(context, qa_question.class);
+                    Uri uri;
+                    String[] qa_category_items = context.getResources().getStringArray(R.array.qa_category_items);
+
+                    switch (sSluResultCity) {
+                        case "enter": {
+                            intent.putExtra("pos", 0);
+                            intent.putExtra("item_name", qa_category_items[0]);
+                            intent.putExtra("lang", lang);
+                            intent.putExtra("country", country);
+                        }  break;
+                        case "thesis": {
+                            intent.putExtra("pos", 1);
+                            intent.putExtra("item_name", qa_category_items[1]);
+                            intent.putExtra("lang", lang);
+                            intent.putExtra("country", country);
+                        }  break;
+                        case "eres": {
+                            intent.putExtra("pos", 2);
+                            intent.putExtra("item_name", qa_category_items[2]);
+                            intent.putExtra("lang", lang);
+                            intent.putExtra("country", country);
+                        }  break;
+                        case "multi": {
+                            intent.putExtra("pos", 3);
+                            intent.putExtra("item_name", qa_category_items[3]);
+                            intent.putExtra("lang", lang);
+                            intent.putExtra("country", country);
+                        }  break;
+                        case "software": {
+                            intent.putExtra("pos", 4);
+                            intent.putExtra("item_name", qa_category_items[4]);
+                            intent.putExtra("lang", lang);
+                            intent.putExtra("country", country);
+                        }  break;
+                        case "email": {
+                            intent.putExtra("pos", 5);
+                            intent.putExtra("item_name", qa_category_items[5]);
+                            intent.putExtra("lang", lang);
+                            intent.putExtra("country", country);
+                        }  break;
+                    }
+
+                    context.startActivity(intent);
+
+
+                }
+            }
         }
 
         @Override
@@ -374,5 +459,35 @@ public class qa_category extends RobotActivity {
 
     public qa_category() {
         super(robotCallback, robotListenCallback);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // close face
+        robotAPI.robot.setExpression(RobotFace.HIDEFACE);
+
+        // jump dialog domain
+        /**
+         * 指向開始的 plan 位址
+         */
+        robotAPI.robot.jumpToPlan(DOMAIN, "ThisPlanLaunchingThisApp");
+
+        // listen user utterance
+        robotAPI.robot.speakAndListen("常見問題~", new SpeakConfig().timeout(20));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //stop listen user utterance
+        robotAPI.robot.stopSpeakAndListen();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

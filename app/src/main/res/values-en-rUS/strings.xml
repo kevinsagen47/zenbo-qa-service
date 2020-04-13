@@ -30,12 +30,12 @@
 
     <!-- qa_category activity items -->
     <string-array name="qa_category_items">
-        <item>入館資訊</item>
-        <item>論文查詢</item>
-        <item>電子資源</item>
-        <item>多媒體資源</item>
-        <item>授權軟體</item>
-        <item>電子信箱</item>
+        <item>Enter Library Information</item>
+        <item>Thesis Information</item>
+        <item>Electronic Resources</item>
+        <item>Multimedia Resources</item>
+        <item>Software</item>
+        <item>E-mail</item>
     </string-array>
 
     <!-- qa_category activity icons -->
